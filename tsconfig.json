@@ -1,0 +1,26 @@
+{
+  
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "CommonJS",  
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./dist",
+    "rootDir": ".",  
+    "composite": true,
+    "jsx": "react-jsx",
+    "moduleResolution": "node",
+  
+  },
+  "include": [
+    "client/**/*",    
+    "server/**/*",      
+    "declarations.d.ts",
+    "types/**/*" 
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

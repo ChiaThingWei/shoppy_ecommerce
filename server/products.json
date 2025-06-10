@@ -1,0 +1,38 @@
+[
+    {
+      "name": "Nike Book 1",
+      "description": "Devin booker first ever lifestyle basketball shoe",
+      "price": 589,
+      "image": "/images/booker.png",
+      "quantity" : "5"
+    },
+    {
+      "name": "Nike Air Max 90",
+      "description": "Classic running shoes with visible Air unit",
+      "price": 399,
+      "image": "/images/airmax.png",
+      "quantity" : "5"
+    },
+    {
+      "name": "Nike Airforce 1",
+      "description": "Best seller of Nike, classic white make you style",
+      "price": 359,
+      "image": "/images/airforce.png",
+      "quantity" : "5"
+    },
+    {
+        "name": "Nike Running ZoomX",
+        "description": "Maximize your running power with new ZoomX technology",
+        "price": 699,
+        "image": "/images/running.png",
+      "quantity" : "15"
+      },
+      {
+        "name": "Nike Vapor",
+        "description": "All new design nike shoe",
+        "price": 479,
+        "image": "/images/vapor.png",
+      "quantity" : "7"
+      }
+  ]
+  
