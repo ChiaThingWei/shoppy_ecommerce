@@ -137,8 +137,17 @@ try{
             WHERE u.username LIKE ?
           `, [`%${search}%`])
 
+          const [totalAmountResult] = await db.query(`
+            SELECT SUM(o.total_price) AS total_amount
+            FROM orders o
+            JOIN users u ON o.user_id = u.id
+            WHERE u.username LIKE ?
+          `, [`%${search}%`]);
+
+          const totalAmount = (totalAmountResult as { total_amount: number | null }[])[0].total_amount || 0;
           const total = (countResult as{total: number}[])[0].total
     
+         
         const typedRows = rows as {
             order_id: number;
             user_id: number;
@@ -183,7 +192,7 @@ try{
 
     const orders: Order[] = Array.from(ordersMap.values())
 
-        res.status(200).json({orders,total: Math.ceil(total/limit)})
+        res.status(200).json({orders,total: Math.ceil(total/limit),totalOrders:total, totalAmount})
 
 }
 

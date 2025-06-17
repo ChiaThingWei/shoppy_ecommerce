@@ -62,6 +62,10 @@ export const getAllProducts = async (req: Request, res: Response)=>{
         productQuery += ' LIMIT ? OFFSET ?'
         params.push(limit,offset)
 
+        const [ totalProductsResult] = await db.query(`SELECT COUNT(*) AS total_products FROM products`)
+     
+        const totalProducts = (totalProductsResult as {total_products: number}[])[0].total_products
+      
 
         const [productRows] = await db.query(productQuery,params)
         const products = productRows as Product[]
@@ -74,7 +78,9 @@ export const getAllProducts = async (req: Request, res: Response)=>{
           total,
           page,
           limit,
-          totalPages: Math.ceil(total/limit)
+          totalPages: Math.ceil(total/limit),
+          totalProducts
+        
         })
     }catch(err){
         res.status(500).json({message:'get products faill', error:err})

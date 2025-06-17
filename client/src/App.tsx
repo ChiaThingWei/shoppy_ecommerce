@@ -7,6 +7,7 @@ import Register from "./pages/Register";
 import { ProductsDetail } from "./pages/ProductsDetail";
 import Cart from "./pages/Cart";
 import { AdminRoutes } from "./admin/AdminRoutes";
+import AboutUs from "./pages/AboutUs";
 
 
 
@@ -22,6 +23,7 @@ function App() {
         <Route path="/cart" element={<Cart/>}/>
         <Route path="/products/:id" element={<ProductsDetail />} />
         <Route path="/cart/:userid" element={<Cart/>}/>
+        <Route path="/aboutus" element={<AboutUs/>}/>
        
         
     

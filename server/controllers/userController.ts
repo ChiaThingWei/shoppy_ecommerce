@@ -94,12 +94,17 @@ export const getAllUsers = async (req:Request, res:Response)=>{
     const [countResult] = await db.query(countQuery, search ?[`%${search}%`,`%${search}%`]:[])
     const total = (countResult as{total: number}[])[0].total
 
+    const [totalUsersResult] = await db.query(`SELECT COUNT(*) AS total_users FROM users`) 
+    const totalUsers = (totalUsersResult as{total_users:number}[])[0].total_users
+    console.log('total users:'+totalUsers)
+
     res.json({
       users,
       total,
       page,
       limit,
-      totalPages: Math.ceil(total/limit)
+      totalPages: Math.ceil(total/limit),
+      totalUsers
     })
 
   }

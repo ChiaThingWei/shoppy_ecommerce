@@ -26,7 +26,7 @@ const Order = () => {
 
     const [order, setOrder] = useState<Order[]>([])
         const [page, setPage] = useState(1)
-        const [limit, setLimit] = useState(5)
+        const [limit, setLimit] = useState(100)
         const [search, setSearch] = useState('')
         const [totalPages, setTotalPages] = useState()
 
@@ -56,7 +56,7 @@ const Order = () => {
     <Sidebar/>
     <div className='ml-auto  w-5/6'>
        <div className='flex flex-col justify-center items-center '>
-        <p>{totalPages}</p>
+      
        <p className='w-11/12 my-4 mx-auto text-xl md:text-3xl'>Order Management</p>
                    <div className='w-11/12 mx-auto'>
                            <div className='bg-orange-200 mt-4 rounded w-full p-4 flex gap-4 text-center flex-row border  border-black'>

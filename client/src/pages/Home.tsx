@@ -7,6 +7,7 @@ import Header from "../components/Header"
 import Footer from "../components/Footer"
 import React from 'react';
 import axios from "axios"
+import { Link } from "react-router-dom"
 // import { response } from "express"
 
 
@@ -17,10 +18,21 @@ interface User{
   password:string
 }
 
+interface Product {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  image: string;
+}
+
 export const Home = () => {
 
   const [index, setIndex] = useState(0);
+  const visibleCount = 4
   const [user,setUser]=useState<User[]>([])
+  const [divIndex, setDivIndex] = useState(0)
+  const [products,setProducts]=useState<Product[]>([])
 
   useEffect(() => {
       const interval = setInterval(() => {
@@ -29,6 +41,26 @@ export const Home = () => {
 
       return () => clearInterval(interval);
   }, []);
+
+  const handleNext = () => {
+    setDivIndex((prev) => (prev + 1)% products.length)
+  }
+
+  const handlePrev = () => {
+    setDivIndex((prev) => (prev - 1 + products.length) % products.length);
+  };
+
+  const getVisibleProducts = (): Product[] => {
+    const result: Product[] = [];
+    for (let i = 0; i < visibleCount; i++) {
+      const index = (divIndex + i) % products.length;
+      const product = products[index];
+      if (product) result.push(product);
+    }
+    return result;
+  };
+
+  const visibleProducts = getVisibleProducts();
 
   // useEffect(()=>{
 
@@ -46,10 +78,10 @@ export const Home = () => {
 
   useEffect(()=>{
 
-    axios.get('http://localhost:3000/api/users')
+    axios.get('http://localhost:3000/api/products')
     .then(response=>{
-      console.log('fetch users: ', response.data)
-      setUser(response.data)
+      console.log('fetch product: ', response.data.products)
+      setProducts(response.data.products)
 
 
     })
@@ -155,7 +187,45 @@ export const Home = () => {
             <div className=" mx-auto md:w-4/5 w-5/6 mt-20 md:mt-32">
               <div className="w-full">
                 <p className="font-bold text-xl md:text-3xl">Highlight Top Pick</p>
-                <p>item list here</p>
+                
+                <div className="relative">
+    
+              <button
+                onClick={handlePrev}
+                className="absolute left-0 top-1/2 z-10 bg-white p-2 shadow-lg rounded-full"
+              >
+                ←
+              </button>
+              <button
+                onClick={handleNext}
+                className="absolute right-0  top-1/2 z-10 bg-white p-2 shadow-lg rounded-full"
+              >
+                →
+              </button>
+
+                <div className="w-full grid grid-cols-4 gap-2 overflow-hidden">
+                {visibleProducts.map((item,index)=>(
+                  <Link to="">
+                  <div key={index} className="border-neutral-100 my-4 bg-slate-200 shadow-md rounded-lg h-[180px] md:h-[300px]">
+                    <img
+                    src={item.image}
+                    alt={item.name}
+                    className="object-cover p-2 mx-auto h-[100px] md:h-[200px] "
+                    />
+                    
+                    
+                    <p className="text-center text-sm">{item.name}</p>
+                    
+                    </div>
+                    </Link>
+
+                ))}
+                </div>
+
+               
+
+                </div>
+              
               </div>
               
             </div>
